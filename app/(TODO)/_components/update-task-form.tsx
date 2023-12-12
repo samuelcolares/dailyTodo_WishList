@@ -66,7 +66,7 @@ export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
       );
       storageTasks[currentTask].task = values.task;
       storageTasks[currentTask].priority = values.priority as
-        | "Urgent"
+        | "High"
         | "Normal"
         | "Low";
       localStorage.setItem("tasks", JSON.stringify(storageTasks));
@@ -103,7 +103,7 @@ export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="Urgent">Urgent</SelectItem>
+                  <SelectItem value="High">High</SelectItem>
                   <SelectItem value="Normal">Normal</SelectItem>
                   <SelectItem value="Low">Low</SelectItem>
                 </SelectContent>
