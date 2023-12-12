@@ -7,6 +7,7 @@ import { UpdateTaskForm } from "@/app/(TODO)/_components/update-task-form";
 type UpdateModalProps = {
   id: string;
   task: string;
+  priority: string;
   isOpen: boolean;
   onClose: () => void;
 };
@@ -16,6 +17,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
   onClose,
   id,
   task,
+  priority,
 }) => {
   const [mounted, setMounted] = useState<boolean>(false);
 
@@ -34,6 +36,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
     >
       <UpdateTaskForm
         id={id}
+        initialPriority={priority}
         initialTask={task}
         onClose={onClose}
       />

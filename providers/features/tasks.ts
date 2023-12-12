@@ -50,6 +50,7 @@ export const taskSlice = createSlice({
     updateTaskLabel: (state, action) => {
       const i = state.tasks.findIndex((task) => task.id === action.payload.id);
       state.tasks[i].task = action.payload.task;
+      state.tasks[i].priority = action.payload.priority;
     },
     updateTask: (state, action) => {
       const i = state.tasks.findIndex((task) => task.id === action.payload.id);

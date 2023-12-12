@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import { taskCount } from "@/providers/features/tasks";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { silk } from "@/fonts";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -67,7 +68,7 @@ export function DataTable<TData, TValue>({
         />
       </div>
         {tasks.length > 0 && (
-          <p>
+          <p className={silk.className}>
             {completedTasks.length} of {tasks.length} tasks completed
           </p>
         )}

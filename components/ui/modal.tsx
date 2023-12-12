@@ -7,6 +7,8 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { cn } from "@/lib/utils";
+import { silk } from "@/fonts";
 
 type ModalProps = {
   title: string;
@@ -32,7 +34,7 @@ export const Modal = ({
     <Dialog open={isOpen} onOpenChange={onChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="font-bold text-lg">{title}</DialogTitle>
+          <DialogTitle className={cn("font-bold text-lg", silk.className)}>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
 

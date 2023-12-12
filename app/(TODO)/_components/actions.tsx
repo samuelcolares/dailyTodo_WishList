@@ -13,14 +13,17 @@ import AlertModal from "@/components/modal/alert-modal";
 import { useDispatch } from "react-redux";
 import { Task } from "@/types";
 import { removeTask } from "@/providers/features/tasks";
-import UpdateModal from "../../../components/modal/form-modal";
+import UpdateModal from "@/components/modal/form-modal";
+import { silk } from "@/fonts";
 
 const Actions = ({
   id,
   task,
+  priority
 }: {
   id: string | unknown;
   task: string | unknown;
+  priority: string | unknown;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [openE, setOpenE] = useState<boolean>(false);
@@ -51,6 +54,7 @@ const Actions = ({
         description={`Deleting Task: '${task}'`}
       />
       <UpdateModal
+        priority={priority as string}
         id={id as string}
         task={task as string}
         isOpen={openE}
@@ -64,21 +68,23 @@ const Actions = ({
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>Settings</DropdownMenuLabel>
+          <DropdownMenuLabel className={silk.className}>
+            Settings
+          </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             className="flex items-center gap-2 cursor-pointer"
             onClick={openAlert2}
           >
             <PenBox className="w-4 h-4" />
-            <span>Edit</span>
+            <span className={silk.className}>Edit</span>
           </DropdownMenuItem>
           <DropdownMenuItem
             className="flex items-center gap-2 cursor-pointer"
             onClick={openAlert}
           >
             <Trash className="w-4 h-4" />
-            <span>Delete</span>
+            <span className={silk.className}>Delete</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

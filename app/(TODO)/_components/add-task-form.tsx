@@ -17,9 +17,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, taskCount } from "@/providers/features/tasks";
 import { Task } from "@/types";
 import { v4 } from "uuid";
+import { silk } from "@/fonts";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 
 const formSchema = z.object({
   task: z.string().min(2).max(50),
+  priority: z.string(),
 });
 
 export const AddTaskForm = () => {
@@ -40,6 +44,7 @@ export const AddTaskForm = () => {
       id: v4(),
       task: values.task,
       completed: false,
+      priority: 'Urgent'
     };
     const exist = tasks.some((item) => task.task === item.task);
     if (exist) {
@@ -64,7 +69,28 @@ export const AddTaskForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <FormField
+          control={form.control}
+          name="priority"
+          render={({ field }) => (
+            <FormItem className="w-[150px]">
+              <Select onValueChange={field.onChange} defaultValue={field.value} >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select priority" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Urgent">Urgent</SelectItem>
+                  <SelectItem value="Normal">Normal</SelectItem>
+                  <SelectItem value="Low">Low</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className={silk.className}>Submit</Button>
       </form>
     </Form>
   );

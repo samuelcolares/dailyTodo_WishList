@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
+import { silk } from "@/fonts";
 type AlertModalProps = {
   title: string;
   description: string;
@@ -34,10 +35,10 @@ const AlertModal: React.FC<AlertModalProps> = ({
       onClose={onClose}
     >
       <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-        <Button variant={"outline"} onClick={onClose}>
+        <Button variant={"outline"} onClick={onClose} className={silk.className}>
           Cancel
         </Button>
-        <Button variant={"destructive"} onClick={onConfirm}>
+        <Button variant={"destructive"} onClick={onConfirm} className={silk.className}>
           Continue
         </Button>
       </div>

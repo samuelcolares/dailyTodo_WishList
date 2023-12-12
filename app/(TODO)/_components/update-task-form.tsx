@@ -12,23 +12,34 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { useDispatch, useSelector } from "react-redux";
 import { updateTaskLabel, taskCount } from "@/providers/features/tasks";
 import { Task } from "@/types";
+import { silk } from "@/fonts";
 
 const formSchema = z.object({
   task: z.string().min(2).max(50),
+  priority: z.string(),
 });
 
 type UpdateTaskForm = {
   initialTask: string;
+  initialPriority: string;
   id: string;
   onClose: () => void;
 };
 
 export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
   initialTask,
+  initialPriority,
   id,
   onClose,
 }) => {
@@ -41,6 +52,7 @@ export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       task: initialTask,
+      priority: initialPriority,
     },
   });
 
@@ -49,8 +61,14 @@ export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
     if (exist) {
       return;
     } else {
-      dispatch(updateTaskLabel({ id, task: values.task }));
+      dispatch(
+        updateTaskLabel({ id, task: values.task, priority: values.priority })
+      );
       storageTasks[currentTask].task = values.task;
+      storageTasks[currentTask].priority = values.priority as
+        | "Urgent"
+        | "Normal"
+        | "Low";
       localStorage.setItem("tasks", JSON.stringify(storageTasks));
       onClose();
     }
@@ -73,11 +91,37 @@ export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="priority"
+          render={({ field }) => (
+            <FormItem className="w-[150px]">
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select priority" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Urgent">Urgent</SelectItem>
+                  <SelectItem value="Normal">Normal</SelectItem>
+                  <SelectItem value="Low">Low</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-          <Button variant={"outline"} onClick={onClose} type="button">
+          <Button
+            variant={"outline"}
+            onClick={onClose}
+            type="button"
+            className={silk.className}
+          >
             Cancel
           </Button>
-          <Button variant={"default"} type="submit">
+          <Button variant={"default"} type="submit" className={silk.className}>
             Continue
           </Button>
         </div>

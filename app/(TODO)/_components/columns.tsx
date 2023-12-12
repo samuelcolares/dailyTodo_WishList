@@ -4,8 +4,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import UpdateStatus from "./update-status";
 import UpdateAll from "./update-all";
 import Actions from "./actions";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { silk } from "@/fonts";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -28,11 +29,12 @@ export const columns: ColumnDef<Task>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className={silk.className}
         >
           Status
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => {
       const completed = row.getValue("completed");
@@ -46,14 +48,22 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "task",
-    header: () => <div className="">Tasks</div>,
+    header: () => <div className={silk.className}>Tasks</div>,
+  },
+  {
+    accessorKey: "priority",
+    header: () => <div className={silk.className}>Priority</div>,
   },
   {
     accessorKey: "id",
-    header: () => <div className="">Actions</div>,
+    header: () => <div className={silk.className}>Actions</div>,
     cell: ({ row }) => (
       <div className="">
-        <Actions id={row.getValue("id")} task={row.getValue("task")} />
+        <Actions
+          id={row.getValue("id")}
+          task={row.getValue("task")}
+          priority={row.getValue("priority")}
+        />
       </div>
     ),
   },

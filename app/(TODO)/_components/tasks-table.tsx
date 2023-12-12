@@ -7,10 +7,12 @@ import { columns } from "./columns";
 import Clock from "react-live-clock";
 import { AddTaskForm } from "./add-task-form";
 import { AppDispatch } from "@/providers/store/task-store";
-import { refreshTasks } from "@/lib/utils";
+import { cn, refreshTasks } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { CopyX } from "lucide-react";
 import DeleteAll from "./delete-all";
+import { silk } from "@/fonts";
+
 
 const TasksTable = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -28,17 +30,19 @@ const TasksTable = () => {
 
   return (
     <>
-      <Clock
-        format={"dddd, MMMM Mo, YYYY, HH:mm:ss"}
-        ticking
-        timezone={"Brazil/East"}
-        className="flex justify-center py-6"
-        locale="br"
-      />
+      <div className={cn("text-xl", silk.className)}>
+        <Clock
+          format={"dddd, MMMM Mo, YYYY, HH:mm:ss"}
+          ticking
+          timezone={"Brazil/East"}
+          className="flex justify-center py-6"
+          locale="br"
+        />
+      </div>
       <DataTable columns={columns} data={tasks} />
       <div className="flex justify-between items-center">
         <AddTaskForm />
-        <DeleteAll/>
+        <DeleteAll />
       </div>
     </>
   );
