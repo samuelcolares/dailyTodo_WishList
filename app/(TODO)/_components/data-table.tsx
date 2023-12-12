@@ -24,6 +24,13 @@ import { taskCount } from "@/providers/features/tasks";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { silk } from "@/fonts";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -47,7 +54,7 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
-      columnFilters
+      columnFilters,
     },
   });
 
@@ -57,16 +64,41 @@ export function DataTable<TData, TValue>({
   return (
     <>
       <div className="flex justify-between items-end pr-1 text-sm text-muted-foreground">
-      <div className="flex items-center pb-1">
-        <Input
-          placeholder="Filter tasks..."
-          value={(table.getColumn("task")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("task")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div>
+        <div className="flex items-center pb-1 gap-2">
+          <Input
+            placeholder="Filter tasks..."
+            value={(table.getColumn("task")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("task")?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm w-[200px]"
+          />
+          <div className="w-[200px]">
+            <Select
+              onValueChange={(event: string) => {
+                if (event === "None") {
+                  table.getColumn("priority")?.setFilterValue("");
+                } else {
+                  table.getColumn("priority")?.setFilterValue(event);
+                }
+              }}
+              defaultValue={
+                (table.getColumn("priority")?.getFilterValue() as string) ?? ""
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by priority" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="None">None</SelectItem>
+                <SelectItem value="High">High</SelectItem>
+                <SelectItem value="Normal">Normal</SelectItem>
+                <SelectItem value="Low">Low</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
         {tasks.length > 0 && (
           <p className={silk.className}>
             {completedTasks.length} of {tasks.length} tasks completed

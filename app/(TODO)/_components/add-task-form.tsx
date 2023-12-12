@@ -61,7 +61,7 @@ export const AddTaskForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex py-2 gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex py-2 gap-2">
         <FormField
           control={form.control}
           name="task"
