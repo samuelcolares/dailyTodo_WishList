@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   task: z
@@ -37,6 +38,7 @@ const formSchema = z.object({
 export const AddTaskForm = () => {
   const dispatch = useDispatch();
   const tasks: Task[] = useSelector(taskCount);
+  const { toast } = useToast();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -56,6 +58,9 @@ export const AddTaskForm = () => {
     };
     const exist = tasks.some((item) => task.task === item.task);
     if (exist) {
+      toast({
+        description: "Already exist a task with this name.",
+      });
       return;
     } else {
       dispatch(addTask(task));

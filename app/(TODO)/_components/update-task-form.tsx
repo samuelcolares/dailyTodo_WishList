@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateTaskLabel, taskCount } from "@/providers/features/tasks";
 import { Task } from "@/types";
 import { silk } from "@/fonts";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   task: z
@@ -50,6 +51,7 @@ export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
   const tasks = useSelector(taskCount);
   const storageTasks: Task[] = JSON.parse(localStorage.getItem("tasks")!);
   const currentTask = storageTasks.findIndex((item) => item.id === id);
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -75,6 +77,9 @@ export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
       localStorage.setItem("tasks", JSON.stringify(storageTasks));
       onClose();
     } else if (exist) {
+      toast({
+        description: "Already exist a task with this name.",
+      });
       return;
     }
   }
