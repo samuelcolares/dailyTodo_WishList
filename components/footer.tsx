@@ -116,7 +116,7 @@ const Footer = () => {
             </HoverCardTrigger>
             <HoverCardContent className="whitespace-normal">
               <p className="mb-4">{item.description}</p>
-              <div className="flex gap-4">
+              <div className="flex gap-4 justify-center">
                 {item.version && (
                   <p>
                     Version: <span>{item.version}</span>
@@ -124,7 +124,7 @@ const Footer = () => {
                 )}
                 <Link
                   href={item.link}
-                  className={cn("border-b text-red-600", silk.className)}
+                  className={cn("border-b text-ring hover:text-primary transition-colors", silk.className)}
                 >
                   Link
                 </Link>
@@ -145,7 +145,7 @@ const Footer = () => {
             <p>How it works?</p>
             <p>
               Sometimes, i forgot to do things so i made this project that{" "}
-              <span className="border-b border-red-400">reset all completed tasks</span> when
+              <span className="border-b border-primary">reset all completed tasks</span> when
               another day begins
             </p>
           </HoverCardContent>

@@ -26,7 +26,10 @@ import { Task } from "@/types";
 import { silk } from "@/fonts";
 
 const formSchema = z.object({
-  task: z.string().min(2).max(50),
+  task: z
+    .string()
+    .min(5, { message: "Minimum 5 characters" })
+    .max(50, { message: "Maximum 50 characters" }),
   priority: z.string(),
 });
 
