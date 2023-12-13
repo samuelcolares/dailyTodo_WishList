@@ -58,9 +58,9 @@ export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const exist = tasks.some((item) => values.task === item.task);
-    if (exist) {
-      return;
-    } else {
+    const itself = values.task === initialTask;
+
+    if (itself || !exist) {
       dispatch(
         updateTaskLabel({ id, task: values.task, priority: values.priority })
       );
@@ -71,6 +71,8 @@ export const UpdateTaskForm: React.FC<UpdateTaskForm> = ({
         | "Low";
       localStorage.setItem("tasks", JSON.stringify(storageTasks));
       onClose();
+    } else if (exist) {
+      return;
     }
   }
   return (
