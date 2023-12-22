@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import task from "@/providers/features/tasks";
+import wish from "../features/wish";
 
 export const store = configureStore({
-  reducer: { task },
+  reducer: { task, wish },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

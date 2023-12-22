@@ -2,21 +2,20 @@
 
 import React, { useState, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
-import { Button } from "@/components/ui/button";
-import { UpdateTaskForm } from "@/app/(TODO)/_components/TODO/update-task-form";
-type UpdateModalProps = {
+import { UpdateWishForm } from "@/app/(TODO)/_components/WISHES/update-wish-form";
+type UpdateWishModalProps = {
   id: string;
-  task: string;
+  wish: string;
   priority: string;
   isOpen: boolean;
   onClose: () => void;
 };
 
-const UpdateModal: React.FC<UpdateModalProps> = ({
+const UpdateWishModal: React.FC<UpdateWishModalProps> = ({
   isOpen,
   onClose,
   id,
-  task,
+  wish,
   priority,
 }) => {
   const [mounted, setMounted] = useState<boolean>(false);
@@ -29,19 +28,19 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
   }
   return (
     <Modal
-      title={"Update task"}
+      title={"Update Item"}
       description={""}
       isOpen={isOpen}
       onClose={onClose}
     >
-      <UpdateTaskForm
+      <UpdateWishForm
         id={id}
         initialPriority={priority}
-        initialTask={task}
+        initialWish={wish}
         onClose={onClose}
       />
     </Modal>
   );
 };
 
-export default UpdateModal;
+export default UpdateWishModal;

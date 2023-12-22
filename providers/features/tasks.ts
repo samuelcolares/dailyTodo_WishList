@@ -1,7 +1,7 @@
 // import { RootState } from "@/providers/store/cart-store";
 import { Task } from "@/types";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "@/providers/store/task-store";
+import { RootState } from "@/providers/store";
 
 export interface TaskState {
   tasks: Task[];
@@ -38,9 +38,6 @@ export const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state, action) => {
-      // const exist = state.tasks.findIndex(
-      //   (task) => task.task === action.payload.task
-      // );
       state.tasks.push({ ...action.payload });
     },
     removeTask: (state, action) => {

@@ -6,13 +6,10 @@ import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import Clock from "react-live-clock";
 import { AddTaskForm } from "./add-task-form";
-import { AppDispatch } from "@/providers/store/task-store";
+import { AppDispatch } from "@/providers/store";
 import { cn, refreshTasks } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { CopyX } from "lucide-react";
 import DeleteAll from "./delete-all";
 import { silk } from "@/fonts";
-
 
 const TasksTable = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
