@@ -22,6 +22,7 @@ const UpdateAll = () => {
             <ToastAction
               altText="Confirm"
               onClick={() => {
+                localStorage.setItem("wishes", "[]");
                 dispatch(deleteAllWishes());
               }}
             >
