@@ -7,13 +7,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { PenBox, Settings, Trash } from "lucide-react";
 import AlertModal from "@/components/modal/alert-modal";
 import { useDispatch } from "react-redux";
 import { Wish } from "@/types";
-
-import UpdateModal from "@/components/modal/form-modal";
 import { silk } from "@/fonts";
 import { removeWish } from "@/providers/features/wish";
 import UpdateWishModal from "@/components/modal/form-wish-modal";
@@ -22,10 +19,12 @@ const Actions = ({
   id,
   wish,
   priority,
+  price,
 }: {
   id: string | unknown;
   wish: string | unknown;
   priority: string | unknown;
+  price: string | unknown;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [openE, setOpenE] = useState<boolean>(false);
@@ -59,6 +58,7 @@ const Actions = ({
         priority={priority as string}
         id={id as string}
         wish={wish as string}
+        price={price as string}
         isOpen={openE}
         onClose={closeAlert2}
       />

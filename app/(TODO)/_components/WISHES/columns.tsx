@@ -23,6 +23,15 @@ export const columns: ColumnDef<Wish>[] = [
     header: () => <div className={silk.className}>Item</div>,
   },
   {
+    accessorKey: "price",
+    header: () => <div className={silk.className}>Price</div>,
+    cell: ({row}) => {
+      const formatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+       const formatPrice = +(row.getValue("price") as string)
+      return <p>{formatter.format(formatPrice)}</p>
+    }
+  },
+  {
     accessorKey: "priority",
     header: () => <div className={silk.className}>Priority</div>,
   },
@@ -35,6 +44,7 @@ export const columns: ColumnDef<Wish>[] = [
           id={row.getValue("id")}
           wish={row.getValue("wish")}
           priority={row.getValue("priority")}
+          price={row.getValue("price")}
         />
       </div>
     ),

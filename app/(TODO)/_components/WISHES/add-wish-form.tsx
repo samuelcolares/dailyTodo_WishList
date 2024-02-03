@@ -32,6 +32,7 @@ const formSchema = z.object({
     .string()
     .min(5, { message: "Minimum 5 characters" })
     .max(50, { message: "Maximum 50 characters" }),
+  price: z.string(),
   priority: z.string(),
 });
 
@@ -51,13 +52,14 @@ export const AddTaskForm = () => {
     const wish: Wish = {
       id: v4(),
       wish: values.wish,
+      price: values.price,
       completed: false,
       priority: values.priority as "High" | "Normal" | "Low",
     };
     const exist = wishes.some((item) => wish.wish === item.wish);
     if (exist) {
       toast({
-        description: "Already exist a task with this name.",
+        description: "Already exist a wish with this item.",
       });
       return;
     } else {
@@ -75,6 +77,18 @@ export const AddTaskForm = () => {
             <FormItem>
               <FormControl>
                 <Input placeholder="Enter a item" {...field} className="py-2" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input placeholder="Enter value" {...field} className="py-2" type="number" min={0} step={0.01}/>
               </FormControl>
               <FormMessage />
             </FormItem>

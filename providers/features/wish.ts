@@ -46,6 +46,7 @@ export const wishSlice = createSlice({
     updateWishLabel: (state, action) => {
       const i = state.wishes.findIndex((wish) => wish.id === action.payload.id);
       state.wishes[i].wish = action.payload.wish;
+      state.wishes[i].price = action.payload.price;
       state.wishes[i].priority = action.payload.priority;
     },
     deleteAllWishes: (state) => {

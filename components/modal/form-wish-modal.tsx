@@ -6,6 +6,7 @@ import { UpdateWishForm } from "@/app/(TODO)/_components/WISHES/update-wish-form
 type UpdateWishModalProps = {
   id: string;
   wish: string;
+  price: string;
   priority: string;
   isOpen: boolean;
   onClose: () => void;
@@ -17,6 +18,7 @@ const UpdateWishModal: React.FC<UpdateWishModalProps> = ({
   id,
   wish,
   priority,
+  price
 }) => {
   const [mounted, setMounted] = useState<boolean>(false);
 
@@ -37,6 +39,7 @@ const UpdateWishModal: React.FC<UpdateWishModalProps> = ({
         id={id}
         initialPriority={priority}
         initialWish={wish}
+        initialPrice={price}
         onClose={onClose}
       />
     </Modal>

@@ -21,7 +21,6 @@ import {
 } from "@/components/ui/select";
 
 import { useDispatch, useSelector } from "react-redux";
-import { updateTaskLabel, taskCount } from "@/providers/features/tasks";
 import { Wish } from "@/types";
 import { silk } from "@/fonts";
 import { useToast } from "@/components/ui/use-toast";
@@ -32,12 +31,14 @@ const formSchema = z.object({
     .string()
     .min(5, { message: "Minimum 5 characters" })
     .max(50, { message: "Maximum 50 characters" }),
+  price: z.string(),
   priority: z.string(),
 });
 
 type UpdateWishForm = {
   initialWish: string;
   initialPriority: string;
+  initialPrice: string;
   id: string;
   onClose: () => void;
 };
@@ -45,6 +46,7 @@ type UpdateWishForm = {
 export const UpdateWishForm: React.FC<UpdateWishForm> = ({
   initialWish,
   initialPriority,
+  initialPrice,
   id,
   onClose,
 }) => {
@@ -59,6 +61,7 @@ export const UpdateWishForm: React.FC<UpdateWishForm> = ({
     defaultValues: {
       wish: initialWish,
       priority: initialPriority,
+      price: initialPrice,
     },
   });
 
@@ -68,9 +71,10 @@ export const UpdateWishForm: React.FC<UpdateWishForm> = ({
 
     if (itself || !exist) {
       dispatch(
-        updateWishLabel({ id, wish: values.wish, priority: values.priority })
+        updateWishLabel({ id, wish: values.wish, priority: values.priority, price: values.price })
       );
       storageWishes[currentWish].wish = values.wish;
+      storageWishes[currentWish].price = values.price;
       storageWishes[currentWish].priority = values.priority as
         | "High"
         | "Normal"
@@ -101,6 +105,18 @@ export const UpdateWishForm: React.FC<UpdateWishForm> = ({
                   {...field}
                   className="py-2"
                 />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input placeholder="Enter value" {...field} className="py-2" type="number" min={0} step={0.01}/>
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -9,6 +9,7 @@ export type Task = {
 export type Wish = {
   id: string
   completed: boolean;
+  price: string;
   wish: string;
   priority: 'High' | 'Normal' | 'Low'
 };
