@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
-import { UpdateWishForm } from "@/app/(TODO)/_components/WISHES/update-wish-form";
+import { UpdateWishForm } from "@/app/(STORES)/_components/WISHES/update-wish-form";
 type UpdateWishModalProps = {
   id: string;
   wish: string;

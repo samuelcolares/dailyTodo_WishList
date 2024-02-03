@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { UpdateTaskForm } from "@/app/(TODO)/_components/TODO/update-task-form";
+import { UpdateTaskForm } from "@/app/(STORES)/_components/TODO/update-task-form";
 type UpdateModalProps = {
   id: string;
   task: string;
