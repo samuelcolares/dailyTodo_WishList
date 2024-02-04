@@ -5,6 +5,7 @@ import UpdateStatus from "./update-status";
 import UpdateAll from "./update-all";
 import Actions from "./actions";
 import { silk } from "@/fonts";
+import { formatterToCurrency } from "@/lib/utils";
 
 
 export const columns: ColumnDef<Wish>[] = [
@@ -26,9 +27,8 @@ export const columns: ColumnDef<Wish>[] = [
     accessorKey: "price",
     header: () => <div className={silk.className}>Price</div>,
     cell: ({row}) => {
-      const formatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
        const formatPrice = +(row.getValue("price") as string)
-      return <p>{formatter.format(formatPrice)}</p>
+      return <p>{formatterToCurrency(formatPrice)}</p>
     }
   },
   {

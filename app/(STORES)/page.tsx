@@ -6,6 +6,6 @@ export const metadata: Metadata = {
   title: "TODO List"
 }
 
-export const TODOPage = () => <TasksTable />;
+const TODOPage = () => <TasksTable />;
 
 export default TODOPage;

@@ -1,12 +1,11 @@
 import { Task } from "@/types";
-import { type ClassValue, clsx } from "clsx"
+import { type ClassValue, clsx } from "clsx";
 import { DateTime } from "luxon";
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
-
 
 export const refreshTasks = () => {
   const DT = DateTime.now();
@@ -29,4 +28,11 @@ export const refreshTasks = () => {
     localStorage.setItem("tasks", JSON.stringify([]));
     return;
   }
+};
+
+export const formatterToCurrency = (value: string | number): string => {
+  const parseToNumber: number = +value;
+  const formatter = new Intl.NumberFormat('en-US', {style:'currency', currency: 'USD'});
+
+  return formatter.format(parseToNumber);
 };

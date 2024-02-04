@@ -32,6 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { wishCount } from "@/providers/features/wish";
+import { cn, formatterToCurrency } from "@/lib/utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -60,6 +61,8 @@ export function DataTable<TData, TValue>({
   });
 
   const wishes = useSelector(wishCount);
+  const PricesSum = wishes.reduce((acc, curr) => acc + +curr.price, 0);
+  const formatedPrice = formatterToCurrency(PricesSum);
 
   return (
     <>
@@ -67,9 +70,9 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center pb-1 gap-2">
           <Input
             placeholder="Filter by item name"
-            value={(table.getColumn("task")?.getFilterValue() as string) ?? ""}
+            value={(table.getColumn("wish")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("task")?.setFilterValue(event.target.value)
+              table.getColumn("wish")?.setFilterValue(event.target.value)
             }
             className="max-w-sm w-[200px]"
           />
@@ -99,12 +102,14 @@ export function DataTable<TData, TValue>({
             </Select>
           </div>
         </div>
-        {wishes.length === 1 && (
-          <p className={silk.className}>{wishes.length} wish</p>
-        )}
-         {wishes.length > 1 && (
-          <p className={silk.className}>{wishes.length} wishes</p>
-        )}
+        <div className={cn("flex items-center gap-2", silk.className)}>
+          <p>
+            {wishes.length > 1
+              ? `${wishes.length} wishes,`
+              : `${wishes.length} wish,`}
+          </p>
+          <p>Total of {formatedPrice}</p>
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>
